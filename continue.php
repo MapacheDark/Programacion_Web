@@ -8,6 +8,6 @@
         echo "Bienvenido otra vez $nombre.<br>
                <a href=tabla.php>Escribe aqui</a>";
     }
-    else echo "Por favor <a href=index.php>Click aqui</a>
+    else echo "Por favor <a href=index.php> Clik aqui</a>
                 para ingresar";
 ?>
