@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2021 a las 02:22:29
+-- Tiempo de generación: 07-08-2021 a las 02:27:06
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.7
 
@@ -30,21 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `datas` (
   `id_datas` int(11) NOT NULL,
   `titulo` varchar(32) NOT NULL,
-  `texto` text NOT NULL,
-  `fecha` date NOT NULL
+  `texto` varchar(500) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `id_username` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `datas`
---
-
-INSERT INTO `datas` (`id_datas`, `titulo`, `texto`, `fecha`) VALUES
-(24, 'Inicio de clases', 'Comenzamos una nuevo semestre academico', '2021-05-12'),
-(25, 'La primera semana de clases', 'Se mpresentaron los docentes de cada cursos que me matricule', '2021-05-18'),
-(26, 'Segunda semana de clases', 'se comenzaron a algunos horarios de dos cursos', '2021-05-24'),
-(27, 'Tercera semana de clases', 'Comienzan a darnos trabajos los profesores', '2021-06-08'),
-(28, 'Semana de Evaluacion', 'Comienzo a dar los primero examenes de mis cursos', '2021-07-01'),
-(29, 'Presentacion del diario de pagin', 'Falta una horas para entregar el trabajo al docente', '2021-07-12');
 
 -- --------------------------------------------------------
 
@@ -56,16 +45,9 @@ CREATE TABLE `usuarios` (
   `id_user` int(11) NOT NULL,
   `nombre` varchar(32) NOT NULL,
   `username` varchar(32) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `id_username` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id_user`, `nombre`, `username`, `password`) VALUES
-(6, 'Juan Jose huaman', '1004320191', '$2y$10$SJGa5zE4lapNaWYpg9wH5erROXzWLj6iR9Br2wkbT6.dqj4VaCuUe'),
-(8, 'juan', 'bsmith', '$2y$10$nHXrbuhIBJfkARBBrwEabOvr.fRbaz8w0En2bWk9Xb3r.vT0y5T9y');
 
 --
 -- Índices para tablas volcadas
@@ -75,13 +57,15 @@ INSERT INTO `usuarios` (`id_user`, `nombre`, `username`, `password`) VALUES
 -- Indices de la tabla `datas`
 --
 ALTER TABLE `datas`
-  ADD PRIMARY KEY (`id_datas`);
+  ADD PRIMARY KEY (`id_datas`),
+  ADD KEY `id_username` (`id_username`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `id_username` (`id_username`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -91,13 +75,23 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `datas`
 --
 ALTER TABLE `datas`
-  MODIFY `id_datas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_datas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_username`) REFERENCES `datas` (`id_username`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
